@@ -74,6 +74,7 @@
             this.linkLabel4.TabIndex = 10;
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Text = "Turn off PC";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
             // 
             // linkLabel2
             // 

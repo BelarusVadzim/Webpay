@@ -18,16 +18,12 @@
             });
         });
 
-        function ShowIFrame(IFrameId) {
+     function ShowIFrame(IFrameId) {
             $("iframe").hide();
             $("#" + IFrameId).show();
 
         }
 
-        function GetWitelist() {
-            var bl = document.getElementById('Blacklist').textContent;
-            alert(bl);
-        }
     </script>
     <style>
         * {
@@ -97,9 +93,7 @@
 
 </head>
 <body>
-    <div>
-        <input type="button" onclick="GetWitelist()" value="rrrrrrrrrrrr" />
-    </div>
+
     <div id="div1">
             <iframe id="Site1" src="https://mismarcadores.com"></iframe>
             <iframe id="Site2" src="https://oncebet.com"></iframe>
@@ -113,9 +107,6 @@
     </div>
     <div style="display: none;">
         <blacklList id="Blacklist">
-            test1;
-            test2;
-            test3;
             mismarcadores.com/promobox/4068/
         </blacklList>
         <whitelist id="Whitelist">

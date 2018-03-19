@@ -142,6 +142,7 @@ namespace WebPay
 #if DEBUG
             DebugInfoMethod("Debug mode. Exit without reboot.");
 #else
+            WebPaySettings.Save();
             System.Diagnostics.Process.Start("ShutDown", "/r /t 0 /f");
             //MessageBox.Show("Autoreboot is off");
             //LogOffUser();
@@ -206,6 +207,7 @@ namespace WebPay
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            this.Close();
             LogOffUser();
         }
 
@@ -213,6 +215,11 @@ namespace WebPay
         {
             ProgramExecuter exec = new Objects.ProgramExecuter();
             exec.ExecuteProgramWithElevation("Explorer.exe", null);
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("ShutDown", "/s /t 0 /f");
         }
     }
 }
