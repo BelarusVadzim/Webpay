@@ -12,14 +12,17 @@ namespace WebPay.Objects
     {
         public void SaveSettings()
         {
-            GeneralSettings GS = new Objects.GeneralSettings()
+            using (TextWriter tw = new StreamWriter(WebPaySettings.ConfigUri))
             {
-                StartUrl = WebPaySettings.StartUrl,
-                PasswordHash = WebPaySettings.PasswordHash
-            };
-            XmlSerializer xs = new XmlSerializer(typeof(GeneralSettings));
-            TextWriter tw = new StreamWriter(WebPaySettings.ConfigUri);
-            xs.Serialize(tw, GS);
+                GeneralSettings GS = new Objects.GeneralSettings()
+                {
+                    StartUrl = WebPaySettings.StartUrl,
+                    PasswordHash = WebPaySettings.PasswordHash,
+                    CustomerMode = WebPaySettings.CustomerMode
+                };
+                XmlSerializer xs = new XmlSerializer(typeof(GeneralSettings));
+                xs.Serialize(tw, GS);
+            }
         }
     }
     [Serializable]
@@ -27,5 +30,6 @@ namespace WebPay.Objects
     {
         public string StartUrl {get; set;}
         public string PasswordHash { get; set; }
+        public bool CustomerMode { get; set; }
     }
 }

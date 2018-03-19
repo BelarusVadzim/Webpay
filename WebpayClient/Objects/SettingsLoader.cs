@@ -51,6 +51,7 @@ namespace WebPay.Objects
                     GeneralSettings GS = (GeneralSettings)formatter.Deserialize(fs);
                     WebPaySettings.PasswordHash = GS.PasswordHash;
                     WebPaySettings.StartUrl = GS.StartUrl;
+                    WebPaySettings.CustomerMode = GS.CustomerMode;
                 }
                 catch
                 {

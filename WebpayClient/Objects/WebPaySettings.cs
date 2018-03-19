@@ -12,10 +12,11 @@ namespace WebPay.Objects
     public static class WebPaySettings
     {
         
-
         private const  string CONFIG_URI = "WebPay.cfg";
 
         public static Boolean FirstBoot { get; set; }
+
+        public static bool CustomerMode { get; set; }
 
         public static string ConfigUri { get; private set; }
 

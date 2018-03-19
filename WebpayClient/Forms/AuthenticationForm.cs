@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebPay.Objects;
 
 namespace WebPay.Forms
 {
@@ -19,7 +20,11 @@ namespace WebPay.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            Authenticator authenticator = new Objects.Authenticator();
+            if (authenticator.CheckPassword(textBox1.Text))
+                this.DialogResult = DialogResult.OK;
+            else
+                this.DialogResult = DialogResult.No;
             this.Close();
         }
     }

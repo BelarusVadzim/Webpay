@@ -100,6 +100,13 @@
     <Compile Include="Forms\AuthenticationForm.Designer.cs">
       <DependentUpon>AuthenticationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\Authenticator.cs" />
     <Compile Include="Objects\CefSharpObjects\BrowserConfigurator.cs" />
     <Compile Include="Objects\CefSharpObjects\KeyboardHandler.cs" />
     <Compile Include="Objects\CefSharpObjects\LifespanHandler.cs" />
@@ -110,8 +117,9 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\CurentAppDirectory.cs" />
+    <Compile Include="Objects\PasswordChanger.cs" />
     <Compile Include="Objects\ProgramExecuter.cs" />
-    <Compile Include="Objects\PasswordCheker.cs" />
+    <Compile Include="Objects\PasswordCryptoManagerr.cs" />
     <Compile Include="Objects\SettingsLoader.cs" />
     <Compile Include="Objects\SettingsSaver.cs" />
     <Compile Include="Objects\WebPaySettings.cs" />
@@ -123,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuthenticationForm.resx">
       <DependentUpon>AuthenticationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

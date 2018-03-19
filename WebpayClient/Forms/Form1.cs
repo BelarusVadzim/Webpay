@@ -24,7 +24,8 @@ namespace WebPay
         {
             InitializeComponent();
             InitializeSettings();
-            InitializeChromium();
+            // InitializeChromium();
+            InitializeControlPanelElements();
         }
 
         private Boolean canClose = false;
@@ -53,24 +54,8 @@ namespace WebPay
             WebPaySettings.Load();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void InitializeControlPanelElements()
         {
-            canClose = true;
-            ApplyModeChanges();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            WorkModeChanger.SetupNormalMode();
-            DebugInfoMethod("ActivateNormalMode");
-            ApplyModeChanges();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            WorkModeChanger.SetupCustomerMode();
-            DebugInfoMethod("ActivateCustomerMode");
-            ApplyModeChanges();
 
         }
 
@@ -78,6 +63,7 @@ namespace WebPay
         {
             if (canClose)
             {
+                WebPaySettings.Save();
                 e.Cancel = false;
                 Cef.Shutdown();
                 return;
@@ -91,20 +77,40 @@ namespace WebPay
             
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.F1)
             {
-                ShowPasswordWindow();
+                OpenControlPanel();
             }
         }
 
-        private void ShowPasswordWindow()
+        private void OpenControlPanel()
         {
-            using (AuthenticationForm passwordForm = new Forms.AuthenticationForm())
+            DialogResult DR = DialogResult.Abort;
+            if (WebPaySettings.FirstBoot)
             {
-                if (DialogResult.OK == passwordForm.ShowDialog())
+                using (ChangePasswordForm CPF = new Forms.ChangePasswordForm())
                 {
-                    ShowControlPanel();
+                    DR = CPF.ShowDialog();
                 }
-                passwordForm.Close();
             }
+            else
+            {
+                using (AuthenticationForm uthenticationForm = new Forms.AuthenticationForm())
+                {
+                    if (DialogResult.OK == uthenticationForm.ShowDialog())
+                    {
+                        DR = DialogResult.OK;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wrong password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+            if (DialogResult.OK == DR)
+            {
+                ShowControlPanel();
+            }
+
         }
 
 
@@ -152,14 +158,48 @@ namespace WebPay
 
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.F1)
             {
-                ShowPasswordWindow();
+                OpenControlPanel();
             }
 
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            WebPaySettings.Save();
+            canClose = true;
+            ApplyModeChanges();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (ChangePasswordForm changePasswordForm = new ChangePasswordForm())
+            {
+                changePasswordForm.ShowDialog();
+            }
+        }
+
+        private void linkLabelStartCustomer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            WorkModeChanger.SetupCustomerMode();
+            DebugInfoMethod("ActivateCustomerMode");
+            ApplyModeChanges();
+        }
+
+        private void linkLabelStartNormal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            WorkModeChanger.SetupNormalMode();
+            DebugInfoMethod("ActivateNormalMode");
+            ApplyModeChanges();
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LogOffUser();
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ProgramExecuter exec = new Objects.ProgramExecuter();
+            exec.ExecuteProgramWithElevation("Explorer.exe", null);
         }
     }
 }

@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace WebPay.Objects
 {
-    public class PasswordCheker
+    public class PasswordCryptoManager
     {
         public bool CheckPassword(string Password)
         {
             return (WebPaySettings.PasswordHash == GetHashString(Password));
+        }
+
+        public void SetNewPassword(string Password)
+        {
+            WebPaySettings.PasswordHash = GetHashString(Password);
+            WebPaySettings.Save();
         }
 
         private byte[] GetHash(string inputString)
