@@ -56,6 +56,7 @@ namespace WebPay.Objects
                 catch
                 {
                     WebPaySettings.StartUrl = CurentAppDirectory.CreateFullPathForFile("indexwebpay.html");
+                    WebPaySettings.StartUrl = "https://oncebet.com/webpay.html";
                     WebPaySettings.PasswordHash = "";
                     WebPaySettings.FirstBoot = true;
                     WebPaySettings.CustomerMode = false;

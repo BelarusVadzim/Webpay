@@ -223,6 +223,7 @@ namespace WebPay
 
         private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            canClose = true;
             Application.Exit();
         }
     }
