@@ -24,7 +24,7 @@ namespace WebPay
         {
             InitializeComponent();
             InitializeSettings();
-            // InitializeChromium();
+            InitializeChromium();
             InitializeControlPanelElements();
         }
 
@@ -56,6 +56,17 @@ namespace WebPay
 
         private void InitializeControlPanelElements()
         {
+            if (WebPaySettings.CustomerMode)
+            {
+                linkLabelStartCustomer.Enabled = false;
+                linkLabelStartNormal.Enabled = true;
+            }
+            else
+            {
+                linkLabelStartCustomer.Enabled = true;
+                linkLabelStartNormal.Enabled = false;
+            }
+
 
         }
 
@@ -131,8 +142,8 @@ namespace WebPay
 #if DEBUG
             DebugInfoMethod("Debug mode. Exit without reboot.");
 #else
-            //System.Diagnostics.Process.Start("ShutDown", "/r /t 0 /f");
-            MessageBox.Show("Autoreboot is off");
+            System.Diagnostics.Process.Start("ShutDown", "/r /t 0 /f");
+            //MessageBox.Show("Autoreboot is off");
             //LogOffUser();
 #endif
             this.Close();
@@ -180,6 +191,7 @@ namespace WebPay
         private void linkLabelStartCustomer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             WorkModeChanger.SetupCustomerMode();
+            WebPaySettings.CustomerMode = true;
             DebugInfoMethod("ActivateCustomerMode");
             ApplyModeChanges();
         }
@@ -187,6 +199,7 @@ namespace WebPay
         private void linkLabelStartNormal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             WorkModeChanger.SetupNormalMode();
+            WebPaySettings.CustomerMode = false;
             DebugInfoMethod("ActivateNormalMode");
             ApplyModeChanges();
         }

@@ -12,8 +12,8 @@ namespace ChangeWorkMode
     {
         public void ActivateCustomerMode()
         {
-            //EnableTAskManager(false);
-            //EnableWinKey(false);
+            EnableTAskManager(false);
+            EnableWinKey(false);
             ReplaceExplorerWithOurApp(false);
         }
 
