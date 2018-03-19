@@ -13,29 +13,32 @@ namespace WebPay.Objects
     {
         
 
-        private static string startUrl = "";
+        private const  string CONFIG_URI = "WebPay.cfg";
+
+        public static string ConfigUri { get; private set; }
 
         public static List<string> BlackList { get; set; }
 
         public static string PasswordHash { get; set; }
 
-        public static string StartUrl
-        {
-            get
-            {
-                  return   string.Format("{0}{1}", System.AppDomain.CurrentDomain.BaseDirectory, startUrl);
-            }
-            set
-            {
-                startUrl = value;
-            }
+        public static string StartUrl { get; set; }
+        //{
+        //    get
+        //    {
+        //          return   string.Format("{0}{1}", System.AppDomain.CurrentDomain.BaseDirectory, startUrl);
+        //    }
+        //    set
+        //    {
+        //        startUrl = value;
+        //    }
  
-         }
+        // }
 
         public static List<string> WhiteList { get; set; }
 
         public static void Load()
         {
+            ConfigUri = CurentAppDirectory.CreateFullPathForFile(CONFIG_URI);
             SettingsLoader Loader = new SettingsLoader();
             Loader.LoadSettings();
         }
@@ -45,7 +48,7 @@ namespace WebPay.Objects
         public static void Save()
         {
             SettingsSaver SS = new SettingsSaver();
-            SS.SaveSettings(Params);
+            SS.SaveSettings();
         }
 
     }

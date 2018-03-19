@@ -1,11 +1,12 @@
 ﻿using CsQuery;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml.Serialization;
 
 namespace WebPay.Objects
 {
@@ -15,7 +16,7 @@ namespace WebPay.Objects
         {
             DummyLoad();
             LoadFromFile();
-            LoadSettingsFromUrl(WebPaySettings.StartUrl);
+            LoadBlakWhiteListFromUrl(WebPaySettings.StartUrl);
         }
 
         private void DummyLoad()
@@ -34,16 +35,23 @@ namespace WebPay.Objects
             //    @"mismarcadores.com/promobox/4068/"
             //};
 
-            WebPaySettings.StartUrl = "indexwebpay.html";
-            WebPaySettings.PasswordHash = "softacomhash";
+            //WebPaySettings.StartUrl = "indexwebpay.html";
+            //WebPaySettings.PasswordHash = "softacomhash";
         }
 
         private void  LoadFromFile()
         {
+            using (FileStream fs = new FileStream(WebPaySettings.ConfigUri, FileMode.OpenOrCreate))
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(GeneralSettings));
+                GeneralSettings GS = (GeneralSettings)formatter.Deserialize(fs);
+                WebPaySettings.PasswordHash = GS.PasswordHash;
+                WebPaySettings.StartUrl = GS.StartUrl;
+            }
 
         }
 
-        private void LoadSettingsFromUrl(string Url)
+        private void LoadBlakWhiteListFromUrl(string Url)
         {
             string html = GetHtmlFromUrl(WebPaySettings.StartUrl);
             LoadBlacklistFromHtml(html);
@@ -92,7 +100,7 @@ namespace WebPay.Objects
             List<string> ss;
             List<string> result = new List<string>();
             s = settingsString.Trim();
-            ss = s.Split(';').ToList<string>();
+            ss = s.Split(new char[] { ';', ',', ' ' }).ToList<string>();
             foreach (var item in ss)
             {
                 result.Add(item.Trim());

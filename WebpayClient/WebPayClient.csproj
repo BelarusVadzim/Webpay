@@ -40,7 +40,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
@@ -134,15 +134,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="bin\x86\Debug\lib\cef.pak" />
-    <None Include="bin\x86\Debug\lib\cef_100_percent.pak" />
-    <None Include="bin\x86\Debug\lib\cef_200_percent.pak" />
-    <None Include="bin\x86\Debug\lib\cef_extensions.pak" />
-    <None Include="bin\x86\Debug\lib\devtools_resources.pak" />
-    <None Include="bin\x86\Debug\lib\icudtl.dat" />
-    <None Include="bin\x86\Debug\lib\natives_blob.bin" />
-    <None Include="bin\x86\Debug\lib\snapshot_blob.bin" />
-    <None Include="bin\x86\Debug\lib\v8_context_snapshot.bin" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -157,29 +148,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\x86\Debug\lib\CefSharp.BrowserSubprocess.Core.dll" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.BrowserSubprocess.Core.pdb" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.BrowserSubprocess.exe" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.BrowserSubprocess.pdb" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.Core.dll" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.Core.pdb" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.Core.xml" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.dll" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.pdb" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.WinForms.dll" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.WinForms.pdb" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.WinForms.XML" />
-    <Content Include="bin\x86\Debug\lib\CefSharp.XML" />
-    <Content Include="bin\x86\Debug\lib\chrome_elf.dll" />
-    <Content Include="bin\x86\Debug\lib\d3dcompiler_47.dll" />
-    <Content Include="bin\x86\Debug\lib\libcef.dll" />
-    <Content Include="bin\x86\Debug\lib\libEGL.dll" />
-    <Content Include="bin\x86\Debug\lib\libGLESv2.dll" />
-    <Content Include="bin\x86\Debug\lib\widevinecdmadapter.dll" />
     <Content Include="CefSharp.Core.dll" />
   </ItemGroup>
   <ItemGroup>

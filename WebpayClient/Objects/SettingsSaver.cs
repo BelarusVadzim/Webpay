@@ -10,11 +10,22 @@ namespace WebPay.Objects
 {
     class SettingsSaver
     {
-        public void SaveSettings(Dictionary<string, string> dictionaryOfSettings)
+        public void SaveSettings()
         {
-            XmlSerializer xs = new XmlSerializer(typeof(Dictionary<string, string>));
-            TextWriter tw = new StreamWriter(CurentAppDirectory.CreateFullPathForFile("WebPay.cfg"));
-            xs.Serialize(tw, dictionaryOfSettings);
+            GeneralSettings GS = new Objects.GeneralSettings()
+            {
+                StartUrl = WebPaySettings.StartUrl,
+                PasswordHash = WebPaySettings.PasswordHash
+            };
+            XmlSerializer xs = new XmlSerializer(typeof(GeneralSettings));
+            TextWriter tw = new StreamWriter(WebPaySettings.ConfigUri);
+            xs.Serialize(tw, GS);
         }
+    }
+    [Serializable]
+    public class GeneralSettings
+    {
+        public string StartUrl {get; set;}
+        public string PasswordHash { get; set; }
     }
 }
