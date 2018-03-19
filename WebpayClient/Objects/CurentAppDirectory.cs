@@ -10,7 +10,7 @@ namespace WebPay.Objects
     {
         public static string CreateFullPathForFile(string ShortFileName)
         {
-            string result = string.Format("{0}\\{1}",
+            string result = string.Format(@"{0}{1}",
                 System.AppDomain.CurrentDomain.BaseDirectory, ShortFileName);
             return result;
         }
