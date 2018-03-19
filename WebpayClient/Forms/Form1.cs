@@ -97,7 +97,7 @@ namespace WebPay
 
         private void ShowPasswordWindow()
         {
-            using (PaswordForm passwordForm = new Forms.PaswordForm())
+            using (AuthenticationForm passwordForm = new Forms.AuthenticationForm())
             {
                 if (DialogResult.OK == passwordForm.ShowDialog())
                 {

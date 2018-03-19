@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WebPay.Forms
 {
-    public partial class PaswordForm : Form
+    public partial class AuthenticationForm : Form
     {
-        public PaswordForm()
+        public AuthenticationForm()
         {
             InitializeComponent();
         }

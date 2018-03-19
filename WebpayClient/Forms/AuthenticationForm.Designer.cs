@@ -1,6 +1,6 @@
 ﻿namespace WebPay.Forms
 {
-    partial class PaswordForm
+    partial class AuthenticationForm
     {
         /// <summary>
         /// Required designer variable.

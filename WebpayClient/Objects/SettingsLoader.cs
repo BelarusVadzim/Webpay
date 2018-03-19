@@ -41,14 +41,24 @@ namespace WebPay.Objects
 
         private void  LoadFromFile()
         {
+
             using (FileStream fs = new FileStream(WebPaySettings.ConfigUri, FileMode.OpenOrCreate))
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(GeneralSettings));
-                GeneralSettings GS = (GeneralSettings)formatter.Deserialize(fs);
-                WebPaySettings.PasswordHash = GS.PasswordHash;
-                WebPaySettings.StartUrl = GS.StartUrl;
-            }
 
+                try
+                {
+                    GeneralSettings GS = (GeneralSettings)formatter.Deserialize(fs);
+                    WebPaySettings.PasswordHash = GS.PasswordHash;
+                    WebPaySettings.StartUrl = GS.StartUrl;
+                }
+                catch
+                {
+                    WebPaySettings.StartUrl = CurentAppDirectory.CreateFullPathForFile("indexwebpay.html");
+                    WebPaySettings.PasswordHash = "";
+                    WebPaySettings.FirstBoot = true;
+                }
+            }
         }
 
         private void LoadBlakWhiteListFromUrl(string Url)
