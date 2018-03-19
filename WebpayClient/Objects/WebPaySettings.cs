@@ -25,6 +25,8 @@ namespace WebPay.Objects
         public static string PasswordHash { get; set; }
 
         public static string StartUrl { get; set; }
+
+        public static string AlterStartURL { get; set; }
         //{
         //    get
         //    {

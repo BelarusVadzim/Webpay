@@ -16,7 +16,7 @@ namespace WebPay.Objects
             {
                 GeneralSettings GS = new Objects.GeneralSettings()
                 {
-                    StartUrl = WebPaySettings.StartUrl,
+                    //StartUrl = WebPaySettings.StartUrl,
                     PasswordHash = WebPaySettings.PasswordHash,
                     CustomerMode = WebPaySettings.CustomerMode
                 };
@@ -28,7 +28,7 @@ namespace WebPay.Objects
     [Serializable]
     public class GeneralSettings
     {
-        public string StartUrl {get; set;}
+        //public string StartUrl {get; set;}
         public string PasswordHash { get; set; }
         public bool CustomerMode { get; set; }
     }

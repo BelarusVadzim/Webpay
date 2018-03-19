@@ -45,18 +45,18 @@ namespace WebPay.Objects
             using (FileStream fs = new FileStream(WebPaySettings.ConfigUri, FileMode.OpenOrCreate))
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(GeneralSettings));
+                WebPaySettings.AlterStartURL = CurentAppDirectory.CreateFullPathForFile("indexwebpay.html");
+                WebPaySettings.StartUrl = "https://oncebet.com/webpay.html";
 
                 try
                 {
+
                     GeneralSettings GS = (GeneralSettings)formatter.Deserialize(fs);
                     WebPaySettings.PasswordHash = GS.PasswordHash;
-                    WebPaySettings.StartUrl = GS.StartUrl;
                     WebPaySettings.CustomerMode = GS.CustomerMode;
                 }
                 catch
                 {
-                    WebPaySettings.StartUrl = CurentAppDirectory.CreateFullPathForFile("indexwebpay.html");
-                    WebPaySettings.StartUrl = "https://oncebet.com/webpay.html";
                     WebPaySettings.PasswordHash = "";
                     WebPaySettings.FirstBoot = true;
                     WebPaySettings.CustomerMode = false;
@@ -125,9 +125,17 @@ namespace WebPay.Objects
         {
             using (WebClient client = new WebClient())
             {
-
-                string htmlCode = client.DownloadString(Url);
-                return htmlCode;
+                try
+                {
+                    string htmlCode = client.DownloadString(Url);
+                    return htmlCode;
+                }
+                catch
+                {
+                    WebPaySettings.StartUrl = WebPaySettings.AlterStartURL;
+                    string htmlCode = client.DownloadString(WebPaySettings.AlterStartURL);
+                    return htmlCode;
+                }
                 
             }
         }
