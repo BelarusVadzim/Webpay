@@ -41,7 +41,6 @@ namespace WebPay
                 this.panel1.Controls.Add(Bro.ChromeBrowser);
                 Bro.ChromeBrowser.Dock = DockStyle.Fill;
                 Bro.BrowserKeyPressed += OnBrowserKeyPressed;
-
             }
                 catch (Exception ex)
                 {
@@ -220,6 +219,11 @@ namespace WebPay
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("ShutDown", "/s /t 0 /f");
+        }
+
+        private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

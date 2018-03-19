@@ -58,6 +58,7 @@ namespace WebPay.Objects
                     WebPaySettings.StartUrl = CurentAppDirectory.CreateFullPathForFile("indexwebpay.html");
                     WebPaySettings.PasswordHash = "";
                     WebPaySettings.FirstBoot = true;
+                    WebPaySettings.CustomerMode = false;
                 }
             }
         }
@@ -111,7 +112,7 @@ namespace WebPay.Objects
             List<string> ss;
             List<string> result = new List<string>();
             s = settingsString.Trim();
-            ss = s.Split(new char[] { ';', ',', ' ' }).ToList<string>();
+            ss = s.Split(new char[] { ';', ','}).ToList<string>();
             foreach (var item in ss)
             {
                 result.Add(item.Trim());
@@ -123,8 +124,10 @@ namespace WebPay.Objects
         {
             using (WebClient client = new WebClient())
             {
+
                 string htmlCode = client.DownloadString(Url);
                 return htmlCode;
+                
             }
         }
 
