@@ -28,6 +28,7 @@ namespace WebPay.Browser
             Settings.CefCommandLineArgs.Add("enable-npapi", "1");
             Settings.CefCommandLineArgs.Add("ppapi-flash-path", @"pepflashplayer.dll");
             Settings.CefCommandLineArgs.Add("ppapi-flash-version", "20.0.0.306");
+            
             Cef.Initialize(Settings);
             Life = new LifespanHandler();
             keyboardHandler = new KeyboardHandler1();

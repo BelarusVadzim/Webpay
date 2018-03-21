@@ -11,8 +11,8 @@ namespace WebPay.Objects
     [Serializable]
     public static class WebPaySettings
     {
-        
-        private const  string CONFIG_URI = "WebPay.cfg";
+
+        private static string CONFIG_URI = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\WebPay.cfg";
 
         public static Boolean FirstBoot { get; set; }
 
@@ -43,7 +43,8 @@ namespace WebPay.Objects
 
         public static void Load()
         {
-            ConfigUri = CurentAppDirectory.CreateFullPathForFile(CONFIG_URI);
+           // ConfigUri = CurentAppDirectory.CreateFullPathForFile(CONFIG_URI);
+            ConfigUri = CONFIG_URI;
             SettingsLoader Loader = new SettingsLoader();
             Loader.LoadSettings();
         }

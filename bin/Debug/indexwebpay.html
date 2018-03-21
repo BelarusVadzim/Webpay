@@ -16,13 +16,34 @@
             $("#Button3").click(function () {
                 ShowIFrame("Site3");
             });
+            $("#ButtonGame").click(function () {
+                ShowGameDiv();
+            });
+            $("#ButtonCloseGame").click(function () {
+                CloseGameDiv();
+            });
         });
 
      function ShowIFrame(IFrameId) {
-            $("iframe").hide();
-            $("#" + IFrameId).show();
+        $("iframe").hide();
+        $("#GameDiv").hide();
+        $("#" + IFrameId).show();
+        $("#Lastsite").prop("value", IFrameId);
 
-        }
+     }
+     function ShowGameDiv() {
+         $("iframe").hide();
+         $("#GameDiv").show();
+         $("#SiteGame").show();
+     }
+     function CloseGameDiv() {
+         ShowIFrame($("#Lastsite").val());
+         $("#GameDiv").hide();
+         $("#ButtonGame").hide();
+         $("#SiteGame").prop("src", "");
+         $("#mySidenav").show();
+     }
+     
 
     </script>
     <style>
@@ -51,26 +72,59 @@
             display: none;
         }
       
-      #mySidenav a {
+ #mySidenav{
+     position: absolute;
+}
+     #mySidenav a {
           display: block;
           position: absolute; /* Position them relative to the browser window */
-          left: -100px; /* Position them outside of the screen */
+          left: 0px;  /*Position them outside of the screen */
           transition: 0.3s; /* Add transition on hover */
           padding: 15px; /* 15px padding */
-          width: 100px; /* Set a specific width */
-          height: 100px; /* Set a specific width */
+          width: 60px;  /*Set a specific width */
+          height: 60px; /* Set a specific width */
           text-decoration: none; /* Remove underline */
           font-size: 10px; /* Increase font size */
-          /*color: white; /* White text color */
+          color: white; /* White text color */
           border-radius: 0 15px 15px 0; /* Rounded corners on the top right and bottom right side */
-          background-color:rgba(150,150,150,0.1);
+          background-color:rgba(150,150,150,0.1);*/
 
+}
+
+
+ #Topnav a {
+    display: block;
+    position: absolute; /* Position them relative to the browser window */
+    left: 50vw; /* Position them outside of the screen */
+    top: -10px;
+    transition: 0.3s; /* Add transition on hover */
+    padding: 15px; /* 15px padding */
+    width: 50px; /* Set a specific width */
+    height: 30px; /* Set a specific width */
+    text-decoration: none; /* Remove underline */
+    font-size: 10px; /* Increase font size */
+    color: white;  /*White text color */
+    border-radius: 0 0 20px 20px; /* Rounded corners on the top right and bottom right side */
+    background-color:rgba(150,150,150,0.1);
+    text-align:center;
+}
+
+#Topnav a:hover {
+    top: 0; /* On mouse-over, make the elements appear as they should */
+    background-color:rgba(200,200,200,0.7);
+    font-size: 20px; /* Increase font size */
+    width: 150px; /* Set a specific width */
+
+    left: calc(50vw - 50px);
 }
 
 #mySidenav a:hover {
     left: 0; /* On mouse-over, make the elements appear as they should */
     background-color:rgba(200,200,200,0.7);
+
 }
+
+
 
 /* The about link: 20px from the top with a green background */
 #Button1 {
@@ -79,14 +133,25 @@
 }
 
 #Button2 {
-    top: 335px;
+    top: 300px;
     content: url('https://pbs.twimg.com/profile_images/697179749752373248/OxAIlQmv.jpg');
 }
 
 #Button3 {
-    top: 470px;
+    top: 400px;
     content: url('http://s3.amazonaws.com/pagoefectivo.pe/zona.pagoefectivo.pe/zona.pagoefectivo.pe/uploads/2017/04/07174326/oncebet-logo.png');
 }
+
+#ButtonGame {
+    top: 500px;
+    content: url('http://s3.amazonaws.com/pagoefectivo.pe/zona.pagoefectivo.pe/zona.pagoefectivo.pe/uploads/2017/04/07174326/oncebet-logo.png');
+    visibility: hidden;
+}
+
+#GameDiv{
+    display: none;
+}
+
 </style>
 
     
@@ -98,23 +163,35 @@
             <iframe id="Site1" src="https://mismarcadores.com"></iframe>
             <iframe id="Site2" src="https://oncebet.com"></iframe>
             <iframe id="Site3" src="https://m.oncebet.com"></iframe>
+            <div  id="GameDiv" >
+                <iframe id="SiteGame" src=""></iframe>
+                <div id="Topnav">
+                    <a href="#" id="ButtonCloseGame">Close</a>
+                </div>
+           </div>
     </div>
    
     <div id="mySidenav" class="sidenav">
-        <a href="#" id="Button1">MisMarcadores.com</a>
-        <a href="#" id="Button2">Oncebet.com</a>
-        <a href="#" id="Button3">Mobile Oncebet.com</a>
+            <a href="#" id="Button1" class="sideButton">MisMarcadores.com</a>
+            <a href="#" id="Button2" class="sideButton">Oncebet.com</a>
+            <a href="#" id="Button3" class="sideButton">Mobile Oncebet.com</a>
+            <a href="#" id="ButtonGame" class="sideButton">Casino</a>
     </div>
     <div style="display: none;">
         <blacklList id="Blacklist">
+            test1;
+            test2;
+            test3;
             mismarcadores.com/promobox/4068/
         </blacklList>
         <whitelist id="Whitelist">
             oncebet.com;
             mismarcadores.com;
             coffeebeansgames;
-            indexwebpay
+            indexwebpay;
+            tut.by
         </whitelist>
     </div>
+    <input type="hidden" id="Lastsite" value="">
 </body>
 </html>
