@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebPay.Objects
+namespace WebPlace.Objects
 {
     static class WorkModeChanger
     {

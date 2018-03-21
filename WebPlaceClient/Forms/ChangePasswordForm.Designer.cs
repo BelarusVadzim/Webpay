@@ -1,4 +1,4 @@
-﻿namespace WebPay.Forms
+﻿namespace WebPlace.Forms
 {
     partial class ChangePasswordForm
     {

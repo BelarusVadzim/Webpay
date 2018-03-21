@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CefSharp.WinForms;
 
-namespace WebPay.Browser
+namespace WebPlace.Browser
 {
     public class LifespanHandler : ILifeSpanHandler
     {

@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace WebPay.Objects
+namespace WebPlace.Objects
 {
     [Serializable]
-    public static class WebPaySettings
+    public static class WebPlaceSettings
     {
 
-        private static string CONFIG_URI = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\WebPay.cfg";
+        private static string CONFIG_URI = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\WebPlace.cfg";
 
         public static Boolean FirstBoot { get; set; }
 

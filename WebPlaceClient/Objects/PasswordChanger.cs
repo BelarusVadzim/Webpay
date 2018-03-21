@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebPay.Objects
+namespace WebPlace.Objects
 {
     class PasswordChanger
     {
         public PasswordChangeResult Change(string CurrentPassword, string NewPassword, string ConfirmNewPassword)
         {
-            if (!WebPaySettings.FirstBoot)
+            if (!WebPlaceSettings.FirstBoot)
             {
                 if (!CheckCurrentPassword(CurrentPassword))
                     return PasswordChangeResult.CurrentPassworFail;

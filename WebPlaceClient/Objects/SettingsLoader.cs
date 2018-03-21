@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace WebPay.Objects
+namespace WebPlace.Objects
 {
     class SettingsLoader
     {
@@ -16,7 +16,7 @@ namespace WebPay.Objects
         {
             DummyLoad();
             LoadFromFile();
-            LoadBlakWhiteListFromUrl(WebPaySettings.StartUrl);
+            LoadBlakWhiteListFromUrl(WebPlaceSettings.StartUrl);
         }
 
         private void DummyLoad()
@@ -26,7 +26,7 @@ namespace WebPay.Objects
             //    "oncebet.com",
             //    "mismarcadores.com",
             //    "coffeebeansgames",
-            //    "indexwebpay",
+            //    "indexwebplace",
             //    "tut.by"
             //};
 
@@ -35,38 +35,38 @@ namespace WebPay.Objects
             //    @"mismarcadores.com/promobox/4068/"
             //};
 
-            //WebPaySettings.StartUrl = "indexwebpay.html";
+            //WebPaySettings.StartUrl = "indexwebpace.html";
             //WebPaySettings.PasswordHash = "softacomhash";
         }
 
         private void  LoadFromFile()
         {
 
-            using (FileStream fs = new FileStream(WebPaySettings.ConfigUri, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(WebPlaceSettings.ConfigUri, FileMode.OpenOrCreate))
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(GeneralSettings));
-                WebPaySettings.AlterStartURL = CurentAppDirectory.CreateFullPathForFile("indexwebpay.html");
-                WebPaySettings.StartUrl = "https://oncebet.com/webpay.html";
+                WebPlaceSettings.AlterStartURL = CurentAppDirectory.CreateFullPathForFile("indexwebplace.html");
+                WebPlaceSettings.StartUrl = "https://oncebet.com/webplace.html";
 
                 try
                 {
 
                     GeneralSettings GS = (GeneralSettings)formatter.Deserialize(fs);
-                    WebPaySettings.PasswordHash = GS.PasswordHash;
-                    WebPaySettings.CustomerMode = GS.CustomerMode;
+                    WebPlaceSettings.PasswordHash = GS.PasswordHash;
+                    WebPlaceSettings.CustomerMode = GS.CustomerMode;
                 }
                 catch
                 {
-                    WebPaySettings.PasswordHash = "";
-                    WebPaySettings.FirstBoot = true;
-                    WebPaySettings.CustomerMode = false;
+                    WebPlaceSettings.PasswordHash = "";
+                    WebPlaceSettings.FirstBoot = true;
+                    WebPlaceSettings.CustomerMode = false;
                 }
             }
         }
 
         private void LoadBlakWhiteListFromUrl(string Url)
         {
-            string html = GetHtmlFromUrl(WebPaySettings.StartUrl);
+            string html = GetHtmlFromUrl(WebPlaceSettings.StartUrl);
             LoadBlacklistFromHtml(html);
             LoadWhitelistFromHtml(html);
         }
@@ -95,10 +95,10 @@ namespace WebPay.Objects
             switch (propName)
             {
                 case "Blacklist":
-                    WebPaySettings.BlackList=L;
+                    WebPlaceSettings.BlackList=L;
                     break;
                 case "Whitelist":
-                    WebPaySettings.WhiteList=L;
+                    WebPlaceSettings.WhiteList=L;
                     break;
                 default:
                     break;
@@ -132,8 +132,8 @@ namespace WebPay.Objects
                 }
                 catch
                 {
-                    WebPaySettings.StartUrl = WebPaySettings.AlterStartURL;
-                    string htmlCode = client.DownloadString(WebPaySettings.AlterStartURL);
+                    WebPlaceSettings.StartUrl = WebPlaceSettings.AlterStartURL;
+                    string htmlCode = client.DownloadString(WebPlaceSettings.AlterStartURL);
                     return htmlCode;
                 }
                 

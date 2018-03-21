@@ -8,9 +8,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WebPay.Objects;
+using WebPlace.Objects;
 
-namespace WebPay.Browser
+namespace WebPlace.Browser
 {
     class BrowserConfigurator
     {
@@ -32,7 +32,7 @@ namespace WebPay.Browser
             Cef.Initialize(Settings);
             Life = new LifespanHandler();
             keyboardHandler = new KeyboardHandler1();
-            ChromeBrowser = new ChromiumWebBrowser(WebPaySettings.StartUrl);
+            ChromeBrowser = new ChromiumWebBrowser(WebPlaceSettings.StartUrl);
             Life.PopupRequest += LifePopupRequest;
             ChromeBrowser.LifeSpanHandler = Life;
             ChromeBrowser.PreviewKeyDown += ChromeBrowser_PreviewKeyDown;
@@ -57,7 +57,7 @@ namespace WebPay.Browser
         private void ChromeBrowserAddressChanged(object sender, AddressChangedEventArgs e)
         {
             string s = e.Address.ToLower();
-            foreach (var item in WebPaySettings.WhiteList)
+            foreach (var item in WebPlaceSettings.WhiteList)
             {
                 if (s.Contains(item))
                     return;
@@ -69,7 +69,7 @@ namespace WebPay.Browser
         private void LifePopupRequest(string obj)
         {
             Life.EnablePopup = false;
-            foreach (var WhiteItem in WebPaySettings.WhiteList)
+            foreach (var WhiteItem in WebPlaceSettings.WhiteList)
             {
                 if (obj.Contains(WhiteItem))
                 {
@@ -77,7 +77,7 @@ namespace WebPay.Browser
                     break;
                 }
             }
-            foreach (var BlackItem in WebPaySettings.BlackList)
+            foreach (var BlackItem in WebPlaceSettings.BlackList)
             {
                 if (obj.Contains(BlackItem))
                 {

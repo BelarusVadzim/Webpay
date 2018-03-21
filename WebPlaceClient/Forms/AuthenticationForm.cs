@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WebPay.Objects;
+using WebPlace.Objects;
 
-namespace WebPay.Forms
+namespace WebPlace.Forms
 {
     public partial class AuthenticationForm : Form
     {

@@ -5,19 +5,19 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebPay.Objects
+namespace WebPlace.Objects
 {
     public class PasswordCryptoManager
     {
         public bool CheckPassword(string Password)
         {
-            return (WebPaySettings.PasswordHash == GetHashString(Password));
+            return (WebPlaceSettings.PasswordHash == GetHashString(Password));
         }
 
         public void SetNewPassword(string Password)
         {
-            WebPaySettings.PasswordHash = GetHashString(Password);
-            WebPaySettings.Save();
+            WebPlaceSettings.PasswordHash = GetHashString(Password);
+            WebPlaceSettings.Save();
         }
 
         private byte[] GetHash(string inputString)

@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
-using WebPay.Objects;
-using WebPay.Forms;
+using WebPlace.Objects;
+using WebPlace.Forms;
 using System.Diagnostics;
 using System.Security.Permissions;
 using System.Security.Principal;
 
-namespace WebPay
+namespace WebPlace
 {
     public partial class Form1 : Form
     {
@@ -25,7 +25,7 @@ namespace WebPay
             InitializeComponent();
             InitializeSettings();
             InitializeChromium();
-            InitializeControlPanelElements();
+            InitializeUIElements();
         }
 
         private Boolean canClose = false;
@@ -50,20 +50,28 @@ namespace WebPay
 
         private void InitializeSettings()
         {
-            WebPaySettings.Load();
+            WebPlaceSettings.Load();
         }
 
-        private void InitializeControlPanelElements()
+        private void InitializeUIElements()
         {
-            if (WebPaySettings.CustomerMode)
+            if (WebPlaceSettings.CustomerMode)
             {
                 linkLabelStartCustomer.Enabled = false;
                 linkLabelStartNormal.Enabled = true;
+                label1.Text = "Customer mode";
+                label1.ForeColor = Color.Green;
             }
             else
             {
                 linkLabelStartCustomer.Enabled = true;
                 linkLabelStartNormal.Enabled = false;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.canClose = true;
+                this.WindowState = FormWindowState.Normal;
+                ShowControlPanel();
+                linkLabel4.Enabled = false;
+                linkLabel2.Enabled = false;
             }
 
 
@@ -73,7 +81,7 @@ namespace WebPay
         {
             if (canClose)
             {
-                WebPaySettings.Save();
+                WebPlaceSettings.Save();
                 e.Cancel = false;
                 Cef.Shutdown();
                 return;
@@ -94,7 +102,7 @@ namespace WebPay
         private void OpenControlPanel()
         {
             DialogResult DR = DialogResult.Abort;
-            if (WebPaySettings.FirstBoot)
+            if (WebPlaceSettings.FirstBoot)
             {
                 using (ChangePasswordForm CPF = new Forms.ChangePasswordForm())
                 {
@@ -141,7 +149,7 @@ namespace WebPay
 #if DEBUG
             DebugInfoMethod("Debug mode. Exit without reboot.");
 #else
-            WebPaySettings.Save();
+            WebPlaceSettings.Save();
             System.Diagnostics.Process.Start("ShutDown", "/r /t 0 /f");
             //MessageBox.Show("Autoreboot is off");
             //LogOffUser();
@@ -190,18 +198,20 @@ namespace WebPay
 
         private void linkLabelStartCustomer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+
+            if (DialogResult.OK != MessageBox.Show("Switching the mode requires restarting the computer!\n Do you want to restart your computer now?",
+                "Attantion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                return;
             WorkModeChanger.SetupCustomerMode();
-            WebPaySettings.CustomerMode = true;
+            WebPlaceSettings.CustomerMode = true;
+            
             DebugInfoMethod("ActivateCustomerMode");
             ApplyModeChanges();
         }
 
         private void linkLabelStartNormal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WorkModeChanger.SetupNormalMode();
-            WebPaySettings.CustomerMode = false;
-            DebugInfoMethod("ActivateNormalMode");
-            ApplyModeChanges();
+            StartNormalMode();
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -210,21 +220,18 @@ namespace WebPay
             LogOffUser();
         }
 
-        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ProgramExecuter exec = new Objects.ProgramExecuter();
-            exec.ExecuteProgramWithElevation("Explorer.exe", null);
-        }
-
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("ShutDown", "/s /t 0 /f");
         }
 
-        private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+
+        private void StartNormalMode()
         {
-            canClose = true;
-            Application.Exit();
+            WorkModeChanger.SetupNormalMode();
+            WebPlaceSettings.CustomerMode = false;
+            DebugInfoMethod("ActivateNormalMode");
+            ApplyModeChanges();
         }
     }
 }

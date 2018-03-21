@@ -51,7 +51,7 @@ namespace ChangeWorkMode
             {
                 SetRegistryValue(RegistryHive.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\Policies\System",
                 "Shell", RegistryValueKind.String, string.Format("{0}\\{1}.exe",
-                System.AppDomain.CurrentDomain.BaseDirectory,  "Webpay"));
+                System.AppDomain.CurrentDomain.BaseDirectory,  "WebPlace"));
             }
         }
 

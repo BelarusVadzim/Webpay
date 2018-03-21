@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace WebPay.Browser
+namespace WebPlace.Browser
 {
     public class KeyboardHandler1 : IKeyboardHandler
     {

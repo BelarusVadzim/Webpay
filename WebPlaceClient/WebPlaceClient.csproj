@@ -11,8 +11,8 @@
     <ProjectGuid>{25386EFA-D6B4-4ED8-952D-064BBC2C1AE1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebPay</RootNamespace>
-    <AssemblyName>WebPay</AssemblyName>
+    <RootNamespace>WebPlace</RootNamespace>
+    <AssemblyName>WebPlace</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -122,7 +122,7 @@
     <Compile Include="Objects\PasswordCryptoManagerr.cs" />
     <Compile Include="Objects\SettingsLoader.cs" />
     <Compile Include="Objects\SettingsSaver.cs" />
-    <Compile Include="Objects\WebPaySettings.cs" />
+    <Compile Include="Objects\WebPlaceSettings.cs" />
     <Compile Include="Objects\WorkModeChanger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
