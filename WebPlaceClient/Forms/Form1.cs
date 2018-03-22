@@ -55,6 +55,9 @@ namespace WebPlace
 
         private void InitializeUIElements()
         {
+            if (WebPlaceSettings.PasswordHash == "")
+                ShowLoginWindow();
+            
             if (WebPlaceSettings.CustomerMode)
             {
                 linkLabelStartCustomer.Enabled = false;
@@ -99,10 +102,10 @@ namespace WebPlace
             }
         }
 
-        private void OpenControlPanel()
+        private DialogResult ShowLoginWindow()
         {
             DialogResult DR = DialogResult.Abort;
-            if (WebPlaceSettings.FirstBoot)
+            if (WebPlaceSettings.PasswordHash == "")
             {
                 using (ChangePasswordForm CPF = new Forms.ChangePasswordForm())
                 {
@@ -124,11 +127,8 @@ namespace WebPlace
                 }
             }
 
-            if (DialogResult.OK == DR)
-            {
-                ShowControlPanel();
-            }
 
+            return DR;
         }
 
 
@@ -198,20 +198,33 @@ namespace WebPlace
 
         private void linkLabelStartCustomer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            try
+            { 
+            //if (DialogResult.OK != MessageBox.Show("Switching the mode requires restarting the computer!\n Do you want to restart your computer now?",
+            //    "Attantion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+            //    return;
+            //WorkModeChanger.SetupCustomerMode();
+            //WebPlaceSettings.CustomerMode = true;
 
-            if (DialogResult.OK != MessageBox.Show("Switching the mode requires restarting the computer!\n Do you want to restart your computer now?",
-                "Attantion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
-                return;
-            WorkModeChanger.SetupCustomerMode();
-            WebPlaceSettings.CustomerMode = true;
-            
-            DebugInfoMethod("ActivateCustomerMode");
-            ApplyModeChanges();
+            //DebugInfoMethod("ActivateCustomerMode");
+            //ApplyModeChanges();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void linkLabelStartNormal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            StartNormalMode();
+            try
+            {
+                StartNormalMode();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -232,6 +245,19 @@ namespace WebPlace
             WebPlaceSettings.CustomerMode = false;
             DebugInfoMethod("ActivateNormalMode");
             ApplyModeChanges();
+        }
+
+        private void OpenControlPanel()
+        {
+            if (DialogResult.OK == ShowLoginWindow())
+            {
+                ShowControlPanel();
+            }
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            HideControlPanel();
         }
     }
 }
