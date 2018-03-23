@@ -30,13 +30,13 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabelStartNormal = new System.Windows.Forms.LinkLabel();
             this.linkLabelStartCustomer = new System.Windows.Forms.LinkLabel();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,12 +67,23 @@
             this.panel2.TabIndex = 5;
             this.panel2.Visible = false;
             // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(557, 19);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(97, 13);
+            this.linkLabel3.TabIndex = 12;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "Close control panel";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(239, 44);
+            this.label1.Location = new System.Drawing.Point(230, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(453, 55);
             this.label1.TabIndex = 11;
@@ -81,7 +92,7 @@
             // linkLabel4
             // 
             this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(410, 19);
+            this.linkLabel4.Location = new System.Drawing.Point(248, 9);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(61, 13);
             this.linkLabel4.TabIndex = 10;
@@ -92,7 +103,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(350, 19);
+            this.linkLabel2.Location = new System.Drawing.Point(248, 23);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(43, 13);
             this.linkLabel2.TabIndex = 8;
@@ -135,17 +146,6 @@
             this.linkLabelStartCustomer.TabStop = true;
             this.linkLabelStartCustomer.Text = "Start customer mode";
             this.linkLabelStartCustomer.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelStartCustomer_LinkClicked);
-            // 
-            // linkLabel3
-            // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(261, 19);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(62, 13);
-            this.linkLabel3.TabIndex = 12;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "Close panel";
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
             // Form1
             // 

@@ -15,6 +15,7 @@ using WebPlace.Forms;
 using System.Diagnostics;
 using System.Security.Permissions;
 using System.Security.Principal;
+using WebPlace.Browser;
 
 namespace WebPlace
 {
@@ -29,12 +30,14 @@ namespace WebPlace
         }
 
         private Boolean canClose = false;
-        Browser.BrowserConfigurator Bro;
+        private BrowserConfigurator Bro;
+
+        #region Initialize methods
         private void InitializeChromium()
         {
           try
             {
-                Bro = new Browser.BrowserConfigurator();
+                Bro = new BrowserConfigurator();
 
                 //main browser
 
@@ -44,19 +47,30 @@ namespace WebPlace
             }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error in initializing the browser. Error: " + ex.Message);
+                    DebugMessageBox("Error in initializing the browser. Error: " + ex.Message);
                 }
         }
 
         private void InitializeSettings()
         {
-            WebPlaceSettings.Load();
+            try
+            {
+                WebPlaceSettings.Load();
+            }
+            catch(Exception ex)
+            {
+                DebugMessageBox(ex.Message);
+            }
+            
         }
 
         private void InitializeUIElements()
         {
             if (WebPlaceSettings.PasswordHash == "")
+            {
                 ShowLoginWindow();
+            }
+                
             
             if (WebPlaceSettings.CustomerMode)
             {
@@ -79,7 +93,9 @@ namespace WebPlace
 
 
         }
+        #endregion
 
+        #region Event handlers
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (canClose)
@@ -100,6 +116,131 @@ namespace WebPlace
             {
                 OpenControlPanel();
             }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.F1)
+            {
+                OpenControlPanel();
+            }
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (ChangePasswordForm changePasswordForm = new ChangePasswordForm())
+            {
+                changePasswordForm.ShowDialog();
+            }
+        }
+
+        private void linkLabelStartCustomer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            StartCustomerMode();
+        }
+
+        private void linkLabelStartNormal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            StartNormalMode();
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            LogOffUser();
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("ShutDown", "/s /t 0 /f");
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            HideControlPanel();
+        }
+
+        #endregion
+
+        #region Private methods
+        private void StartNormalMode()
+        {
+            try
+            {
+                if (WorkModeChanger.SetupNormalMode() == 0)
+                {
+                    WebPlaceSettings.CustomerMode = false;
+                    DebugMessageBox("ActivateNormalMode");
+                    ApplyModeChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+#if DEBUG
+                MessageBox.Show(ex.Message);
+#endif
+            }
+        }
+
+        private void OpenControlPanel()
+        {
+            if (DialogResult.OK == ShowLoginWindow())
+            {
+                ShowControlPanel();
+            }
+        }
+
+        private void StartCustomerMode()
+        {
+
+            try
+            {
+                if (DialogResult.OK != MessageBox.Show("Switching the mode requires restarting the computer!\n Do you want to restart your computer now?",
+                               "Attantion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                    return;
+
+                if (WorkModeChanger.SetupCustomerMode() == 0)
+                {
+                    WebPlaceSettings.CustomerMode = true;
+                    DebugMessageBox("ActivateCustomerMode");
+                    ApplyModeChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                MessageBox.Show(ex.Message);
+#endif
+            }
+
+
+
+        }
+
+        private void ShowControlPanel()
+        {
+            panel2.Visible = true;
+            panel1.Top = 50;
+        }
+
+        private void HideControlPanel()
+        {
+            panel2.Visible = false;
+            panel1.Top = 0;
+        }
+
+        private void ApplyModeChanges()
+        {
+#if DEBUG
+            DebugMessageBox("Debug mode. Exit without reboot.");
+#else
+            WebPlaceSettings.Save();
+            System.Diagnostics.Process.Start("ShutDown", "/r /t 0 /f");
+#endif
+            this.Close();
         }
 
         private DialogResult ShowLoginWindow()
@@ -131,34 +272,17 @@ namespace WebPlace
             return DR;
         }
 
-
-        private void ShowControlPanel()
+        private int ShowChangePasswordWindow()
         {
-            panel2.Visible = true;
-            panel1.Top = 50;
+            using (ChangePasswordForm CPF = new Forms.ChangePasswordForm())
+            {
+                if (CPF.ShowDialog() == DialogResult.OK)
+                    return 0;
+                return 1;
+            }
         }
 
-        private void HideControlPanel()
-        {
-            panel2.Visible = false;
-            panel1.Top = 0;
-        }
-
-        private void ApplyModeChanges()
-        {
-#if DEBUG
-            DebugInfoMethod("Debug mode. Exit without reboot.");
-#else
-            WebPlaceSettings.Save();
-            System.Diagnostics.Process.Start("ShutDown", "/r /t 0 /f");
-            //MessageBox.Show("Autoreboot is off");
-            //LogOffUser();
-#endif
-            this.Close();
-        }
-
-        
-        public static void DebugInfoMethod(string message)
+        public static void DebugMessageBox(string message)
         {
 #if DEBUG
             MessageBox.Show(message);
@@ -167,97 +291,14 @@ namespace WebPlace
 
         [DllImport("user32.dll")]
         static extern bool ExitWindowsEx(uint uFlags, uint dwReason);
+
         private void LogOffUser()
         {
+            canClose = true;
+            this.Close();
             ExitWindowsEx(0, 0);
         }
+        #endregion
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.F1)
-            {
-                OpenControlPanel();
-            }
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            canClose = true;
-            ApplyModeChanges();
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            using (ChangePasswordForm changePasswordForm = new ChangePasswordForm())
-            {
-                changePasswordForm.ShowDialog();
-            }
-        }
-
-        private void linkLabelStartCustomer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            { 
-            //if (DialogResult.OK != MessageBox.Show("Switching the mode requires restarting the computer!\n Do you want to restart your computer now?",
-            //    "Attantion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
-            //    return;
-            //WorkModeChanger.SetupCustomerMode();
-            //WebPlaceSettings.CustomerMode = true;
-
-            //DebugInfoMethod("ActivateCustomerMode");
-            //ApplyModeChanges();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void linkLabelStartNormal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                StartNormalMode();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            this.Close();
-            LogOffUser();
-        }
-
-        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("ShutDown", "/s /t 0 /f");
-        }
-
-
-        private void StartNormalMode()
-        {
-            WorkModeChanger.SetupNormalMode();
-            WebPlaceSettings.CustomerMode = false;
-            DebugInfoMethod("ActivateNormalMode");
-            ApplyModeChanges();
-        }
-
-        private void OpenControlPanel()
-        {
-            if (DialogResult.OK == ShowLoginWindow())
-            {
-                ShowControlPanel();
-            }
-        }
-
-        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            HideControlPanel();
-        }
     }
 }

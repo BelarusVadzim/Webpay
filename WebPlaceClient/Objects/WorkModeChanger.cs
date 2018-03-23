@@ -8,27 +8,24 @@ namespace WebPlace.Objects
 {
     static class WorkModeChanger
     {
-        public static void SetupNormalMode()
+        public static int SetupNormalMode()
         {
-            Run("normal");
-            DeactivateCustomerMode?.Invoke();
+           return Run("normal");
         }
 
-        public static void SetupCustomerMode()
+        public static int SetupCustomerMode()
         {
-            Run("customer");
-            ActivateCustomerMode?.Invoke();
+            return Run("customer");
         }
 
-        private static void Run(string Arguments)
+        private static int Run(string Arguments)
         {
             ProgramExecuter exec = new ProgramExecuter();
-            exec.ErrorExecuteProgram += (m, n) => ErrorChangeMode(n);
-            exec.ExecuteProgramWithElevation(CurentAppDirectory.CreateFullPathForFile("ChangeWorkMode.exe"), Arguments);
+            exec.ErrorExecuteProgram += (sender, message) => ErrorChangeMode(message);
+            return exec.ExecuteProgramWithElevation(CurentAppDirectory.CreateFullPathForFile("ChangeWorkMode.exe"), Arguments);
+
         }
 
         public static event Action<string> ErrorChangeMode;
-        public static event Action ActivateCustomerMode;
-        public static event Action DeactivateCustomerMode;
     }
 }

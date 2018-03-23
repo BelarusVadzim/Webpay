@@ -9,24 +9,25 @@ namespace ChangeWorkMode
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
+
             WindowsTuner WT = new WindowsTuner();
             if (args.Length > 0)
             {
-                switch (args[0])
+                switch (args[0].ToLower())
                 {
                     case "customer":
-                        WT.ActivateCustomerMode();
-                        break;
+                    case "c":
+                        return  WT.ActivateCustomerMode();
                     case "normal":
+                    case "n":
+                        return  WT.ActivateNormalMode();
                     default:
-                        WT.ActivateNormalMode();
-                        break;
+                        return -1;
                 }
-                return;
             }
-            WT.ActivateNormalMode();
+            return WT.ActivateNormalMode();
         }
     }
 }

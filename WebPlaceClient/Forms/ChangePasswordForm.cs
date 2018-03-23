@@ -13,12 +13,14 @@ namespace WebPlace.Forms
 {
     public partial class ChangePasswordForm : Form
     {
+        private bool canClose = false;
         public ChangePasswordForm()
         {
             InitializeComponent();
-            if(WebPlaceSettings.FirstBoot)
+            if(WebPlaceSettings.PasswordHash == "")
             {
                 textBoxCurrentPassword.Enabled = false;
+                button2.Enabled = false;
             }
         }
 
@@ -46,6 +48,8 @@ namespace WebPlace.Forms
         private void OnPasswordChangeOK()
         {
             this.DialogResult = DialogResult.OK;
+            MessageBox.Show("Password successfully changed!", "Ok", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            canClose = true;
             this.Close();
         }
 
@@ -57,13 +61,19 @@ namespace WebPlace.Forms
 
         private void OnConfirmNewPasswordErrorFail()
         {
-            MessageBox.Show("The entered password does not match the confirmation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("The entered password doesn't match the confirmation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            canClose = true;
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void ChangePasswordForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !canClose;
         }
     }
 }

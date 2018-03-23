@@ -10,25 +10,44 @@ namespace ChangeWorkMode
 {
     class WindowsTuner
     {
-        public void ActivateCustomerMode()
+        #region Public methods
+        public int ActivateCustomerMode()
         {
-            EnableTAskManager(false);
-            EnableWinKey(false);
-            ReplaceExplorerWithOurApp(false);
+            try
+            {
+                EnableTAskManager(false);
+                EnableWinKey(false);
+                ReplaceExplorerWithOurApp(false);
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 1;
+            }
         }
 
-        public void ActivateNormalMode()
+        public int ActivateNormalMode()
         {
-            EnableTAskManager(true);
-            EnableWinKey(true);
-            ReplaceExplorerWithOurApp(true);
+            try
+            {
+                EnableTAskManager(true);
+                EnableWinKey(true);
+                ReplaceExplorerWithOurApp(true);
+                return 0;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 2;
+            }
         }
+        #endregion
 
-
+        #region Private methods
         private void EnableTAskManager(bool enableTaskManager)
         {
             int keyValue = enableTaskManager ? 0 : 1;
-
             SetRegistryValue(RegistryHive.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\Policies\System",
                "DisableTaskMgr", RegistryValueKind.DWord, keyValue);
         }
@@ -55,7 +74,8 @@ namespace ChangeWorkMode
             }
         }
 
-        private void SetRegistryValue(RegistryHive registryHive, string SubKey, string ValueName, RegistryValueKind RegistryValueType, object Value)
+        private void SetRegistryValue(RegistryHive registryHive, string SubKey,
+            string ValueName, RegistryValueKind RegistryValueType, object Value)
         {
 
             using (RegistryKey myKey = Registry.CurrentUser.OpenSubKey(SubKey, true))
@@ -72,5 +92,6 @@ namespace ChangeWorkMode
                 myKey.Close();
             }
         }
+        #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace WebPlace.Objects
 {
     class ProgramExecuter
     {
-        public void ExecuteProgramWithElevation(string FileName, string Arguments)
+        public int ExecuteProgramWithElevation(string FileName, string Arguments)
         {
             const int ERROR_CANCELLED = 1223; //The operation was canceled by the user.
 
@@ -22,13 +22,27 @@ namespace WebPlace.Objects
             try
             {
                 Process.Start(info);
+                return 0;
+                //switch (.ExitCode)
+                //{
+                //    case 0:
+                //        return 0;
+                //    default:
+                //        return 1;
+                //}
             }
             catch (Win32Exception ex)
             {
                 if (ex.NativeErrorCode == ERROR_CANCELLED)
+                {
                     ErrorExecuteProgram?.Invoke(this, "Cancelled");
+                    return 1;
+                }
                 else
+                {
                     ErrorExecuteProgram?.Invoke(this, ex.Message);
+                    return 2;
+                }
             }
         }
 
