@@ -46,7 +46,7 @@ namespace WebPlace.Objects
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(GeneralSettings));
                 WebPlaceSettings.AlterStartURL = CurentAppDirectory.CreateFullPathForFile("indexwebplace.html");
-                WebPlaceSettings.StartUrl = "https://oncebet.com/webplace.html";
+                WebPlaceSettings.StartUrl = "https://oncebet.com/WebPlace.html";
 
                 try
                 {

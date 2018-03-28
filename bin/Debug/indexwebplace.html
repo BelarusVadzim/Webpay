@@ -23,6 +23,8 @@
                 CloseGameDiv();
             });
         });
+		
+		
 
      function ShowIFrame(IFrameId) {
         $("iframe").hide();
@@ -160,11 +162,11 @@
 <body>
 
     <div id="div1">
-            <iframe id="Site1" src="https://mismarcadores.com"></iframe>
-            <iframe id="Site2" src="https://oncebet.com"></iframe>
-            <iframe id="Site3" src="https://m.oncebet.com"></iframe>
+            <iframe id="Site1" src="https://mismarcadores.com?webplace=1"></iframe>
+            <iframe id="Site2" src="https://oncebet.com?webplace=2"></iframe>
+            <iframe id="Site3" src="https://m.oncebet.com?webplace=3"></iframe>
             <div  id="GameDiv" >
-                <iframe id="SiteGame" src=""></iframe>
+                <iframe id="SiteGame" src="https://mismarcadores.com?webplace=1"></iframe>
                 <div id="Topnav">
                     <a href="#" id="ButtonCloseGame">Close</a>
                 </div>
@@ -179,10 +181,8 @@
     </div>
     <div style="display: none;">
         <blacklList id="Blacklist">
-            test1;
-            test2;
-            test3;
-            mismarcadores.com/promobox/4068/
+            mismarcadores.com/promobox/4068/;
+			mismarcadores.com/mobile/#android
         </blacklList>
         <whitelist id="Whitelist">
             oncebet.com;
@@ -192,6 +192,6 @@
             tut.by
         </whitelist>
     </div>
-    <input type="hidden" id="Lastsite" value="">
+    <input type="hidden" id="Lastsite" value="Site1">
 </body>
 </html>
