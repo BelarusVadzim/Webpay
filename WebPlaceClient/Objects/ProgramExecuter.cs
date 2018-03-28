@@ -12,11 +12,11 @@ namespace WebPlace.Objects
     class ProgramExecuter
     {
 
-        public int ExecuteProgramWithElevation(string FileName, string Arguments)
+        public int ExecuteProgramWithElevation(string FileFullName, string Arguments)
         {
             const int ERROR_CANCELLED = 1223; //The operation was canceled by the user.
 
-            ProcessStartInfo info = new ProcessStartInfo(FileName);
+            ProcessStartInfo info = new ProcessStartInfo(FileFullName);
             info.UseShellExecute = true;
             info.Verb = "runas";
             info.WindowStyle = ProcessWindowStyle.Hidden;
