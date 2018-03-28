@@ -28,6 +28,7 @@ namespace WebPlace.Browser
             Settings.CefCommandLineArgs.Add("enable-npapi", "1");
             Settings.CefCommandLineArgs.Add("ppapi-flash-path", @"pepflashplayer.dll");
             Settings.CefCommandLineArgs.Add("ppapi-flash-version", "20.0.0.306");
+            Settings.Locale = "ru-RU";
             
             Cef.Initialize(Settings);
             Life = new LifespanHandler();
@@ -39,8 +40,6 @@ namespace WebPlace.Browser
             ChromeBrowser.AddressChanged += ChromeBrowserAddressChanged;
             ChromeBrowser.KeyboardHandler = keyboardHandler;
             HideScrolBars(true);
-            
-
         }
 
         private void ChromeBrowser_PreviewKeyDown(object sender, System.Windows.Forms.PreviewKeyDownEventArgs e)
@@ -49,7 +48,6 @@ namespace WebPlace.Browser
             {
                 BrowserKeyPressed?.Invoke(sender, e);
             }
-
         }
 
 

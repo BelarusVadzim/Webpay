@@ -300,5 +300,9 @@ namespace WebPlace
         }
         #endregion
 
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("Explorer");
+        }
     }
 }
