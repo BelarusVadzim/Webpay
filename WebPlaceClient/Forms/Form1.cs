@@ -61,11 +61,13 @@ namespace WebPlace
             {
                 DebugMessageBox(ex.Message);
             }
+            WorkModeChanger.ErrorChangeMode += (m) => MessageBox.Show(m, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             
         }
 
         private void InitializeUIElements()
         {
+
             if (WebPlaceSettings.PasswordHash == "")
             {
                 ShowLoginWindow();

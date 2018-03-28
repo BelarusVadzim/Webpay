@@ -21,7 +21,7 @@ namespace WebPlace.Objects
         private static int Run(string Arguments)
         {
             ProgramExecuter exec = new ProgramExecuter();
-            exec.ErrorExecuteProgram += (sender, message) => ErrorChangeMode(message);
+            exec.ErrorExecuteProgram += (sender, message) => ErrorChangeMode?.Invoke(message);
             return exec.ExecuteProgramWithElevation(CurentAppDirectory.CreateFullPathForFile("ChangeWorkMode.exe"), Arguments);
 
         }
