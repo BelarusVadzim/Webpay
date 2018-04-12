@@ -41,6 +41,10 @@ namespace WebPlace.Objects
 
         public static List<string> WhiteList { get; set; }
 
+        public static List<string> GameUrlList { get; set; }
+
+        public static List<string> ScoreUrlList { get; set; }
+
         public static void Load()
         {
            // ConfigUri = CurentAppDirectory.CreateFullPathForFile(CONFIG_URI);

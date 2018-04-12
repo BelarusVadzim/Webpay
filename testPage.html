@@ -39,14 +39,13 @@
 
         function ShowRightPanel(url) {
             $(".frame1_Right").show();
-            $(".frame1RightSideCloseButton").show();
-            $(".frame1_Left").css("width", "55%");
-            $(".iframeRight").prop("src", url);
+            $(".frame1RightSideCloseButton").Show();
+            $(".frame1_Left").css("width", "60%");
+            $(".frame1_Right").prop("src", url);
         }
 
         function openFrameGame() {
-            $(".frame").hide();
-            $(".frameGame").show();
+            SwitchToFrame("frameGame");
             $(".sideLeftMenu").hide();
         }
 
@@ -139,30 +138,14 @@
 
         }
         .frame1RightSideCloseButton {
-            width: 30px;
-            height: 30px;
-            position: fixed;
+            position:absolute;
             top:10px; 
-            right:10px;
-            opacity: 0.3;
-            transition: 0.5s;
-            
-        }
-        .frame1RightSideCloseButton:hover {
-            width: 60px;
-            height: auto;
-            opacity: 0.7;
-            
+            right:10px
         }
 
-            .frame1RightSideCloseButton img {
-                width: 100%;
-                height: auto;
-            }
-
-            .button {
-                cursor: pointer;
-            }
+        .button {
+            cursor: pointer;
+        }
 
             .sideLeftButton:hover {
                 background-color: rgb(200,200,200);
@@ -183,8 +166,8 @@
             }
         .frame1_Left {
             position:absolute; 
-            left:0px; 
-            width:55%
+            left:0; 
+            width:70%
         }
         .frame1_Right {
             position: absolute;
@@ -197,11 +180,13 @@
         .frame1 iframe {
             height: 145vh;
             width: 145%;
-            -webkit-transform: scale(0.82);
+            -ms-zoom: 0.7;
+            -moz-transform: scale(0.7);
+            -moz-transform-origin: 0px 0;
+            -o-transform: scale(0.7);
+            -o-transform-origin: 0 0;
+            -webkit-transform: scale(0.7);
             -webkit-transform-origin: 0 0;
-        }
-        .frame1{
-            width: 95%;
         }
 
 
@@ -216,10 +201,10 @@
                 <iframe src="https://mismarcadores.com?webplace=1"></iframe>
             </div>
             <div class="frame1_Right">
-                <iframe class="iframeRight" src="https://www.mismarcadores.com/partido/hAL30NiB/#resumen-del-partido"></iframe>
+                <iframe src="https://www.mismarcadores.com/partido/hAL30NiB/#resumen-del-partido"></iframe>
             </div>
             <div class="frame1RightSideCloseButton button">
-                <img src="https://static.fjcdn.com/pictures/Which+close+button+should+i+use+i+have+this+two_e08deb_5442440.png" />
+                <img src="https://static.fjcdn.com/pictures/Which+close+button+should+i+use+i+have+this+two_e08deb_5442440.png" style="width:40px; height:auto; opacity:0.3" />
             </div>
         </div>
         <!--OnceBet-->
@@ -235,7 +220,7 @@
             <div class="closeGameButton">
                 <p>Close</p>
             </div>
-            <iframe class="iframeGame" src=""></iframe>>
+            <iframe class=".iframeGame" src="https://tut.by"></iframe>>
         </div>
 
         <!--left side menu-->
@@ -267,11 +252,9 @@
             indexwebplace;
             tut.by
         </whitelist>
-        <GameUrls id="GameUrls">
-		    coffeebeansgames;
+        <GameUrls>
         </GameUrls>
-        <ScoreUrls id="ScoreUrls">
-		    mismarcadores;
+        <ScoreUrls>
         </ScoreUrls>
     </div>
     <input type="hidden" id="Lastsite" value="frame1">

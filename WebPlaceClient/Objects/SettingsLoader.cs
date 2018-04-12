@@ -16,7 +16,7 @@ namespace WebPlace.Objects
         {
             DummyLoad();
             LoadFromFile();
-            LoadBlakWhiteListFromUrl(WebPlaceSettings.StartUrl);
+            LoadListsFromUrl(WebPlaceSettings.StartUrl);
         }
 
         private void DummyLoad()
@@ -46,8 +46,9 @@ namespace WebPlace.Objects
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(GeneralSettings));
                 WebPlaceSettings.AlterStartURL = CurentAppDirectory.CreateFullPathForFile("indexwebplace.html");
-                WebPlaceSettings.StartUrl = "https://oncebet.com/WebPlace.html";
 
+                WebPlaceSettings.StartUrl = "https://oncebet.com/WebPlace2.html";
+                //WebPlaceSettings.StartUrl = WebPlaceSettings.AlterStartURL;
                 try
                 {
 
@@ -64,11 +65,14 @@ namespace WebPlace.Objects
             }
         }
 
-        private void LoadBlakWhiteListFromUrl(string Url)
+        private void LoadListsFromUrl(string Url)
         {
             string html = GetHtmlFromUrl(WebPlaceSettings.StartUrl);
             LoadBlacklistFromHtml(html);
             LoadWhitelistFromHtml(html);
+            LoadGameUrlslistFromHtml(html);
+            LoadScoreUrlslistFromHtml(html);
+
         }
 
         private void LoadBlacklistFromHtml(string html)
@@ -80,6 +84,17 @@ namespace WebPlace.Objects
         {
             LoadlistFromHtml(html, "Whitelist");
         }
+
+        private void LoadGameUrlslistFromHtml(string html)
+        {
+            LoadlistFromHtml(html, "GameUrls");
+        }
+
+        private void LoadScoreUrlslistFromHtml(string html)
+        {
+            LoadlistFromHtml(html, "ScoreUrls");
+        }
+
 
         private void LoadlistFromHtml(string html, string propName)
         {
@@ -100,6 +115,14 @@ namespace WebPlace.Objects
                 case "Whitelist":
                     WebPlaceSettings.WhiteList=L;
                     break;
+                case "GameUrls":
+                    WebPlaceSettings.GameUrlList = L;
+                    WebPlaceSettings.WhiteList.AddRange(L);
+                    break;
+                case "ScoreUrls":
+                    WebPlaceSettings.ScoreUrlList = L;
+                    WebPlaceSettings.WhiteList.AddRange(L);
+                    break;
                 default:
                     break;
             }
@@ -116,7 +139,9 @@ namespace WebPlace.Objects
             ss = s.Split(new char[] { ';', ','}).ToList<string>();
             foreach (var item in ss)
             {
-                result.Add(item.Trim());
+                var tempstring = item.Trim();
+                if (!string.IsNullOrWhiteSpace(tempstring))
+                      result.Add(tempstring);
             }
             return result;
         }

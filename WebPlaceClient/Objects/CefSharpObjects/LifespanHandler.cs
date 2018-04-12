@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CefSharp.WinForms;
+using WebPlace.Objects;
 
 namespace WebPlace.Browser
 {
@@ -40,7 +41,7 @@ namespace WebPlace.Browser
         void ILifeSpanHandler.OnAfterCreated(IWebBrowser browserControl, IBrowser browser) { }
 
 
-        private void OpenPopupInIframe(IWebBrowser browserControl, string Url)
+        private void OpenPopupInIframe2(IWebBrowser browserControl, string Url)
         {
             StringBuilder script = new StringBuilder();
             //script.Append(string.Format("alert('{0}');", Url));
@@ -54,6 +55,31 @@ namespace WebPlace.Browser
             script.Append("$(\"#SiteGame\").css(\"visibility\", \"visible\");");
             script.Append("$(\"#mySidenav\").hide();");
             browserControl.ExecuteScriptAsync(script.ToString());
+        }
+        private void OpenPopupInIframe(IWebBrowser browserControl, string url)
+        {
+            StringBuilder script = new StringBuilder();
+            //if game
+            foreach (var GameItem in WebPlaceSettings.GameUrlList)
+            {
+                if (url.Contains(GameItem))
+                {
+                    script.Append(string.Format("$(\".iframeGame\").prop(\"src\", \"{0}\");", url));
+                    script.Append("openFrameGame();");
+                    browserControl.ExecuteScriptAsync(script.ToString());
+                    return;
+                }
+            }
+            //if score
+            foreach (var ScoreItem in WebPlaceSettings.ScoreUrlList)
+            {
+                if (url.Contains(ScoreItem))
+                {
+                    script.Append($"ShowRightPanel(\"{url}\");");
+                    browserControl.ExecuteScriptAsync(script.ToString());
+                    return;
+                }
+            }
         }
     }
 }
