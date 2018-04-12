@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeWorkMode", "ChangeWor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPlaceClient", "WebPlaceClient\WebPlaceClient.csproj", "{25386EFA-D6B4-4ED8-952D-064BBC2C1AE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "..\PluginINterface.dll\PluginINterface.dll\PluginInterface.csproj", "{4349F774-90AF-4261-8ACF-8AB0B0C041CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,18 @@ Global
 		{25386EFA-D6B4-4ED8-952D-064BBC2C1AE1}.Release|x64.Build.0 = Release|x64
 		{25386EFA-D6B4-4ED8-952D-064BBC2C1AE1}.Release|x86.ActiveCfg = Release|x86
 		{25386EFA-D6B4-4ED8-952D-064BBC2C1AE1}.Release|x86.Build.0 = Release|x86
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Release|x64.Build.0 = Release|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{4349F774-90AF-4261-8ACF-8AB0B0C041CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
