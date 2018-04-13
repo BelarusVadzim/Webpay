@@ -106,6 +106,12 @@
     <Compile Include="Forms\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ToolsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ToolsForm.Designer.cs">
+      <DependentUpon>ToolsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\Authenticator.cs" />
     <Compile Include="Objects\CefSharpObjects\BrowserConfigurator.cs" />
     <Compile Include="Objects\CefSharpObjects\KeyboardHandler.cs" />
@@ -118,6 +124,7 @@
     </Compile>
     <Compile Include="Objects\CurentAppDirectory.cs" />
     <Compile Include="Objects\PasswordChanger.cs" />
+    <Compile Include="Objects\PluginExecuter.cs" />
     <Compile Include="Objects\ProgramExecuter.cs" />
     <Compile Include="Objects\PasswordCryptoManagerr.cs" />
     <Compile Include="Objects\SettingsLoader.cs" />
@@ -134,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ToolsForm.resx">
+      <DependentUpon>ToolsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -159,7 +169,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\PluginINterface.dll\PluginINterface.dll\PluginInterface.csproj">
+      <Project>{4349f774-90af-4261-8acf-8ab0b0c041ce}</Project>
+      <Name>PluginInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="CefSharp.Core.dll" />
   </ItemGroup>

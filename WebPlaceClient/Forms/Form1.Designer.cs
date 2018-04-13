@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
@@ -37,7 +38,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabelStartNormal = new System.Windows.Forms.LinkLabel();
             this.linkLabelStartCustomer = new System.Windows.Forms.LinkLabel();
-            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +56,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.linkLabel6);
             this.panel2.Controls.Add(this.linkLabel5);
             this.panel2.Controls.Add(this.linkLabel3);
             this.panel2.Controls.Add(this.label1);
@@ -68,6 +70,17 @@
             this.panel2.Size = new System.Drawing.Size(722, 114);
             this.panel2.TabIndex = 5;
             this.panel2.Visible = false;
+            // 
+            // linkLabel5
+            // 
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.Location = new System.Drawing.Point(336, 9);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(70, 13);
+            this.linkLabel5.TabIndex = 13;
+            this.linkLabel5.TabStop = true;
+            this.linkLabel5.Text = "Run explorer.";
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
             // 
             // linkLabel3
             // 
@@ -149,16 +162,15 @@
             this.linkLabelStartCustomer.Text = "Start customer mode";
             this.linkLabelStartCustomer.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelStartCustomer_LinkClicked);
             // 
-            // linkLabel5
+            // linkLabel6
             // 
-            this.linkLabel5.AutoSize = true;
-            this.linkLabel5.Location = new System.Drawing.Point(336, 9);
-            this.linkLabel5.Name = "linkLabel5";
-            this.linkLabel5.Size = new System.Drawing.Size(70, 13);
-            this.linkLabel5.TabIndex = 13;
-            this.linkLabel5.TabStop = true;
-            this.linkLabel5.Text = "Run explorer.";
-            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
+            this.linkLabel6.AutoSize = true;
+            this.linkLabel6.Location = new System.Drawing.Point(339, 26);
+            this.linkLabel6.Name = "linkLabel6";
+            this.linkLabel6.Size = new System.Drawing.Size(33, 13);
+            this.linkLabel6.TabIndex = 14;
+            this.linkLabel6.TabStop = true;
+            this.linkLabel6.Text = "Tools";
             // 
             // Form1
             // 
@@ -192,6 +204,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel5;
+        private System.Windows.Forms.LinkLabel linkLabel6;
     }
 }
 
